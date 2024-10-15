@@ -1,0 +1,55 @@
+QWidget {
+    background-color: #2E3440;
+    color: #ECEFF4;
+}
+
+QLabel {
+    color: #88C0D0;
+}
+
+QPushButton {
+    background-color: #4C566A;
+    color: #ECEFF4;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #5E81AC;
+}
+
+QPushButton#mergeButton {
+    background-color: #A3BE8C;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QPushButton#mergeButton:hover {
+    background-color: #8FBCBB;
+}
+
+QListWidget {
+    background: #3B4252;
+    border: 1px solid #4C566A;
+    border-radius: 8px;
+}
+
+QListWidget::item {
+    color: #ECEFF4;
+    padding: 10px;
+    background-color:transparent;
+}
+
+QListWidget::item:hover {
+    background-color: #434C5E;
+}
+
+QLineEdit {
+    background-color: #3B4252;
+    border: 1px solid #4C566A;
+    color: #ECEFF4;
+    padding: 8px;
+    border-radius: 8px;
+}

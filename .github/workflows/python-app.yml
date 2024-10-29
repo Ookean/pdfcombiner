@@ -1,0 +1,92 @@
+name: Build Cross-Platform Executables
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch name if needed
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'  # Use your required Python version
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Windows executable with PyInstaller
+        run: |
+          pyinstaller pdf_merger_app.py --onefile --noconsole --name PDFMergerApp_Windows --add-data "styles.qss;." --add-data "resources/icon.png;resources"
+        shell: cmd
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDFMergerApp_Windows
+          path: dist/PDFMergerApp_Windows.exe
+
+  build_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Linux executable with PyInstaller
+        run: |
+          pyinstaller pdf_merger_app.py --onefile --name PDFMergerApp_Linux --add-data "styles.qss:." --add-data "resources/icon.png:resources"
+
+      - name: Upload Linux executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDFMergerApp_Linux
+          path: dist/PDFMergerApp_Linux
+
+  build_macos:
+    runs-on: macos-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build macOS executable with PyInstaller
+        run: |
+          pyinstaller pdf_merger_app.py --onefile --name PDFMergerApp_macOS --add-data "styles.qss:." --add-data "resources/icon.png:resources"
+
+      - name: Upload macOS executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: PDFMergerApp_macOS
+          path: dist/PDFMergerApp_macOS
